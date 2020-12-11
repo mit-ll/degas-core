@@ -1,0 +1,9 @@
+*.mexw64
+*.mexa64
+*.pdb
+*.mat
+*.asv
+*.o
+slprj/
+*_rsim_rtw/
+*.slxc

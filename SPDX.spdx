@@ -1,0 +1,5 @@
+SPDXVersion: SPDX-2.1
+PackageName: degas
+PackageOriginator: MIT Lincoln Laboratory
+PackageHomePage:
+PackageLicenseDeclared: X11
