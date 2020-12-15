@@ -279,7 +279,7 @@ The current known limitations of DEGAS are listed below:
 
 A DOI number should be created upon public release of this repository.
 
-<!-- Please use this DOI number reference when citing the software: -->
+[![DOI](https://zenodo.org/badge/320661487.svg)](https://zenodo.org/badge/latestdoi/320661487)
 
 ## Distribution Statement
 
