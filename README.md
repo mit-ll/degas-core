@@ -1,6 +1,6 @@
 # DAA Evaluation of Guidance, Alerting, and Surveillance
 
-The DAA Evaluation of Guidance, Alerting, and Surveillance (DEGAS) repository contains a simulation framework created by MIT LL to perform simulations of Detect and Avoid (DAA) Systems. DEGAS can be used to create an end-to-end simulation of typically two aircraft using MATLAB/Simulink. The code directory contains all of the components required for a user to create a two aircraft nominal encounter. A nominal encounter is an encounter where no avoidance maneuvers are performed by either aircraft. The DEGAS simulation pipeline is consistent with the Monte Carlo process described in this [paper](https://apps.dtic.mil/dtic/tr/fulltext/u2/a474336.pdf). There are additional repositories available that can be used to increase DEGAS functionality, for example, acquiring the [`DAIDALUS`](https://github.com/nasa/daidalus) (a NASA DAA alerting and guidance implementation) repository can allow the ownship to perform DAA maneuvers.
+The DAA Evaluation of Guidance, Alerting, and Surveillance (DEGAS) repository contains a simulation framework created by MIT LL to perform simulations of Detect and Avoid (DAA) Systems. DEGAS can be used to create an end-to-end simulation of typically two aircraft using MATLAB/Simulink. The code directory contains all of the components required for a user to create a two aircraft nominal encounter. A nominal encounter is an encounter where no avoidance maneuvers are performed by either aircraft. The DEGAS simulation pipeline is consistent with the Monte Carlo process described in this [paper](https://apps.dtic.mil/dtic/tr/fulltext/u2/a474336.pdf). There are additional repositories available that can be used to increase DEGAS functionality, for example, acquiring the [`DAIDALUS`](https://github.com/nasa/daidalus/tree/DAIDALUSv2.0.1c) (a NASA DAA alerting and guidance implementation) repository can allow the ownship to perform DAA maneuvers.
 
 - [DAA Evaluation of Guidance, Alerting, and Surveillance](#daa-evaluation-of-guidance-alerting-and-surveillance)
   - [Nomenclature](#nomenclature)
@@ -31,7 +31,7 @@ The DAA Evaluation of Guidance, Alerting, and Surveillance (DEGAS) repository co
 Acronym | Phrase
  :--- | :---
 DAA | Detect and Avoid
-DAIDALUS | [Detect and Avoid Alerting Logic for Unmanned Systems](https://github.com/nasa/daidalus)
+DAIDALUS | [Detect and Avoid Alerting Logic for Unmanned Systems](https://github.com/nasa/daidalus/tree/DAIDALUSv2.0.1c)
 DEGAS | DAA Evaluation of Guidance, Alerting, and Surveillance
 HMD | Horizontal Miss Distance
 NMAC | Near Mid-Air Collision (500 ft horizontally, 100 ft vertically)
@@ -47,11 +47,11 @@ Code developed and tested in Windows and Unix for Matlab R2018b. Although not te
 
 ![Simulation and Analysis Pipeline](./code/images/sim_pipeline.PNG)*Simulation and Analysis Pipeline*
 
-An end-to-end simulation in DEGAS is a collection of modular components. These components can come from standard Simulink libraries, Simulink Toolboxes, or custom user-made Simulink blocks. MIT LL has developed libraries of custom-made components that allow for the simulation of a two aircraft encounter, including dynamics and surveillance models. These components are located in `/DEGAS/code/block_libraries/basic_libraries/`. Most components in that directory have both a Simulink model representation and a corresponding class that defines the properties and functions used by that component.
+An end-to-end simulation in DEGAS is a collection of modular components. These components can come from standard Simulink libraries, Simulink Toolboxes, or custom user-made Simulink blocks. MIT LL has developed libraries of custom-made components that allow for the simulation of a two aircraft encounter, including dynamics and surveillance models. These components are located in `/degas-core/code/block_libraries/basic_libraries/`. Most components in that directory have both a Simulink model representation and a corresponding class that defines the properties and functions used by that component.
 
 ![Nominal Encounter Simulation](./code/images/nom_sim.png)*Nominal Encounter Simulation*
 
-The nominal encounter simulation shown above is `NominalEncounter.slx` and is located in `/DEGAS/code/examples/NominalEncounter/`. The simulation and analysis pipeline is explained in more detail below.
+The nominal encounter simulation shown above is `NominalEncounter.slx` and is located in `/degas-core/code/examples/NominalEncounter/`. The simulation and analysis pipeline is explained in more detail below.
 
 **Note:** The DEGAS simulation and analysis pipeline makes extensive use of the object-oriented capabilities that MATLAB provides. The user can read and familiarize themselves with these capabilities [here](https://www.mathworks.com/discovery/object-oriented-programming.html).
 
@@ -63,7 +63,7 @@ The nominal encounter simulation shown above is `NominalEncounter.slx` and is lo
 
 #### Ownship Aircraft
 
-  The Ownship Aircraft consists of a Nominal Trajectory Block, Basic Aircraft Dynamics Block, and two sensors: one to measure ownship states and one to measure intruder states. In the nominal encounter, both sensors are Perfect Surveillance Blocks. The ownship sensor is used to estimate ownship states and can be replaced with a block that simulates an inertial navigation system or similar if ownship state errors are desired. The intruder sensor block can be replaced with another sensor, for example the EOIR Parametric model block that exists in `/DEGAS/code/block_libraries/basic_libraries/surveillanceLib/surveillanceLib.slx`.
+  The Ownship Aircraft consists of a Nominal Trajectory Block, Basic Aircraft Dynamics Block, and two sensors: one to measure ownship states and one to measure intruder states. In the nominal encounter, both sensors are Perfect Surveillance Blocks. The ownship sensor is used to estimate ownship states and can be replaced with a block that simulates an inertial navigation system or similar if ownship state errors are desired. The intruder sensor block can be replaced with another sensor, for example the EOIR Parametric model block that exists in `/degas-core/code/block_libraries/basic_libraries/surveillanceLib/surveillanceLib.slx`.
 
   From the Ownship Aircraft, the signals ownshipStateTrue, ownshipStateRateTrue, OwnshipAircraftEstimate and IntruderAircraftEstimate are collected as Top-level Outputs.
 
@@ -79,7 +79,7 @@ The nominal encounter simulation shown above is `NominalEncounter.slx` and is lo
 
 #### Metrics
 
-  The Metrics subsystem seen in the Nominal Encounter contains three metrics blocks. More can be added depending on the needs of the analysis. The metrics blocks can be found in `/DEGAS/code/block_libraries/basic_libraries/metricsLib/metricsLib.slx`.
+  The Metrics subsystem seen in the Nominal Encounter contains three metrics blocks. More can be added depending on the needs of the analysis. The metrics blocks can be found in `/degas-core/code/block_libraries/basic_libraries/metricsLib/metricsLib.slx`.
 
   <!-- * Top-level Outputs: -->
 
@@ -91,18 +91,18 @@ The nominal encounter simulation shown above is `NominalEncounter.slx` and is lo
 
 #### Control Flow
 
-  The Control Flow area contains the Stop Conditions block which can be found in `/DEGAS/code/block_libraries/basic_libraries/controlLib/controlLib.slx`.
+  The Control Flow area contains the Stop Conditions block which can be found in `/degas-core/code/block_libraries/basic_libraries/controlLib/controlLib.slx`.
   The Stop Conditions block is used to stop the simulation if the range and altitude difference between the ownship and intruder aircraft exceed certain, user-modifiable thresholds.
 
 <!-- 2) Create Simulation class -->
 
 ### 2) Create Simulation class
 
-   The simulation created in step one of the simulation and analysis pipeline needs an associated class file. The class file contains the properties and methods that are used by the simulation before, during, and after the simulation is run. The class file associated with `NominalEncounter.slx` is [NominalEncounterClass.m](./code/examples/NominalEncounter/NominalEncounterClass.m) and is located in `/DEGAS/code/examples/NominalEncounter/`. Every end-to-end simulation class needs to be derived from the Simulation class located in `/DEGAS/code/base_classes/` so that all the required methods and properties are available to the end-to-end simulation class.
+   The simulation created in step one of the simulation and analysis pipeline needs an associated class file. The class file contains the properties and methods that are used by the simulation before, during, and after the simulation is run. The class file associated with `NominalEncounter.slx` is [NominalEncounterClass.m](./code/examples/NominalEncounter/NominalEncounterClass.m) and is located in `/degas-core/code/examples/NominalEncounter/`. Every end-to-end simulation class needs to be derived from the Simulation class located in `/degas-core/code/base_classes/` so that all the required methods and properties are available to the end-to-end simulation class.
 
 ![NominalEncounter end-to-end simulation class](./code/images/end2endclass.PNG)*NominalEncounter end-to-end simulation class*
 
-  The properties in the end-to-end simulation class are associated with library blocks or custom-made blocks that are used in the simulation. Most blocks in the standard DEGAS libraries have mask parameters that affect the execution of the block. To determine if a block has mask parameters, double click on the block in Simulink and a window will pop up describing the block's function. If there are any fields that should be made tunable, then the block class used by the mask must be added to the end-to-end simulation class as a property. A tunable parameter is a parameter used by a simulation that can be set at runtime. Using tunable parameters allows for a single compiled Simulink model to run with various configurations, for instance, with different surveillance systems. An example of a block that has no tunable parameters is the commonMetrics block located in `/DEGAS/block_libraries/basic_libraries/metricsLib/metricsLib.slx`. The commonMetrics block does not have any mask parameters so it does not need to be added to the end-to-end simulation class as a property.
+  The properties in the end-to-end simulation class are associated with library blocks or custom-made blocks that are used in the simulation. Most blocks in the standard DEGAS libraries have mask parameters that affect the execution of the block. To determine if a block has mask parameters, double click on the block in Simulink and a window will pop up describing the block's function. If there are any fields that should be made tunable, then the block class used by the mask must be added to the end-to-end simulation class as a property. A tunable parameter is a parameter used by a simulation that can be set at runtime. Using tunable parameters allows for a single compiled Simulink model to run with various configurations, for instance, with different surveillance systems. An example of a block that has no tunable parameters is the commonMetrics block located in `/degas-core/block_libraries/basic_libraries/metricsLib/metricsLib.slx`. The commonMetrics block does not have any mask parameters so it does not need to be added to the end-to-end simulation class as a property.
 
   The image below shows the mask parameters for the Basic Aircraft Dynamics Block.
 
@@ -120,7 +120,7 @@ The nominal encounter simulation shown above is `NominalEncounter.slx` and is lo
 
 ### 3) Create and run simulation script
 
-  After the end-to-end Simulink simulation and simulation class are created, a simulation script can be created to set up and run the simulation object as desired. This is an optional step because the end-to-end simulation object can also be configured and executed from the MATLAB command line. While this step is optional, it is recommended so that the user can get familiar with the simulation and analysis pipeline. The simulation script for the NominalEncounter simulation is [RUN_NominalEncounter.m](./code/examples/NominalEncounter/RUN_NominalEncounter.m) and is located in the `/DEGAS/code/examples/NominalEncounter/`. To execute the simulation, the user simply has to run the simulation script.
+  After the end-to-end Simulink simulation and simulation class are created, a simulation script can be created to set up and run the simulation object as desired. This is an optional step because the end-to-end simulation object can also be configured and executed from the MATLAB command line. While this step is optional, it is recommended so that the user can get familiar with the simulation and analysis pipeline. The simulation script for the NominalEncounter simulation is [RUN_NominalEncounter.m](./code/examples/NominalEncounter/RUN_NominalEncounter.m) and is located in the `/degas-core/code/examples/NominalEncounter/`. To execute the simulation, the user simply has to run the simulation script.
 
 <!-- 4) Analyze results -->
 
@@ -161,41 +161,47 @@ DEGAS contains a code directory that includes the following directories:
 
 ## Quick Start and Nominal Encounter Run
 
-If running DEGAS for the first time, unzip DEGAS_final_release.zip.
+After cloning this repository, follow these steps to setup DEGAS:
 
-1) Startup MATLAB and change the current directory to the `/DEGAS/code/` directory located where the DEGAS_final_release.zip was unzipped.
+1) Startup MATLAB and change the current directory to the `/degas-core/code/` directory located where the repository was cloned.
 
-2) Open the file `startup.m`. If there are additional paths that need to be added to the MATLAB path, they can be put into the `addThesePaths` cell variable. Currently the `addThesePaths` variable contains relative paths to the DAIDALUS and Pilot Model repositories, so no additional paths need to be added.
+2) Open the file `startup.m`. If there are additional paths that need to be added to the MATLAB path, they can be put into the `addThesePaths` cell variable. Currently the `addThesePaths` variable contains relative paths to the [degas-daidalus](https://github.com/mit-ll/degas-daidalus) and [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel) repositories.  
 
-3) Run `startup.m`. This will add all of the directories and files in the `/DEGAS/code/` directory and `addThesePaths` variable to the MATLAB path.
+3) Run `startup.m`. This will add all of the directories and files in the `/degas-core/code/` directory and `addThesePaths` variable to the MATLAB path.
 
    **Note:** `startup.m` should be run at the beginning of every MATLAB session where DEGAS will be used.
 
-4) Change to the `/DEGAS/code/examples/NominalEncounter/` directory and run [RUN_NominalEncounter.m](./code/examples/NominalEncounter/RUN_NominalEncounter.m).
+4) Change to the `/degas-core/code/examples/NominalEncounter/` directory and run [RUN_NominalEncounter.m](./code/examples/NominalEncounter/RUN_NominalEncounter.m).
 
 5) If there are no errors, then DEGAS has been set up correctly.
 
-## Setup for simulations that use DAIDALUS for Detect and Avoid
+## Setup for simulations that use DAIDALUS and the Pilot Model
 
-The setup for simulations that use DAIDALUS for DAA is intended to be run after all the steps in the Quick Start section have been completed.
+The setup for simulations that use DAIDALUS for Detect and Avoid is intended to be run after all the steps in the Quick Start section have been completed.
 
-**Note:** To properly run this section, the user must have mexed a DAIDALUS s-function. For more information, please see the `README.md` file located in `/DAIDALUS-LL-Interface/`. Integration test results in DEGAS were collected using DAIDALUS version 2.0.1c.
+1) Clone [degas-daidalus](https://github.com/mit-ll/degas-daidalus). Follow the instructions in the `README.md` file located in `/degas-daidalus/SimulinkInterface`. These instructions include obtaining NASA's [DAIDALUS v2.0.1](https://github.com/nasa/daidalus/tree/DAIDALUSv2.0.1c) and mexing the DAIDALUS s-function.
 
-1) Change the working directory to `/DEGAS/code/examples/DAAEncounter/`.
+2) Clone [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel).
 
-2) Run the script [RUN_DAAEncounter.m](./code/examples/DAAEncounter/RUN_DAAEncounter.m).
+3) Startup MATLAB and change the current directory to the `/degas-core/code/` directory located where the degas-core repository was cloned.
 
-3) If there are no errors, then DAIDALUS and the SC-228 Pilot Model have been setup correctly.
+4) Open the file `startup.m`. Ensure the `addThesePaths` variable contains the correct paths to where you have cloned [degas-daidalus](https://github.com/mit-ll/degas-daidalus) and [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel) repositories.
 
-4) Change the working directory to `/DEGAS/code/integration_tests/`.
+5) Change the working directory to `/degas-core/code/examples/DAAEncounter/`.
 
-5) Run the script [RUN_integration_test_nom_daa](./code/integration_tests/RUN_integration_test_nom_daa.m). This script tests the `NominalEncounter.slx` and `DAAEncounter.slx` Simulink models to verify they are working as intended.
+6) Run the script [RUN_DAAEncounter.m](./code/examples/DAAEncounter/RUN_DAAEncounter.m).
 
-6) If there are no errors, then DEGAS, DAIDALUS, and the SC-228 Pilot Model have been integrated together correctly.
+7) If there are no errors, then DAIDALUS and the SC-228 Pilot Model have been setup correctly.
+
+8) Change the working directory to `/degas-core/code/integration_tests/`.
+
+9) Run the script [RUN_integration_test_nom_daa](./code/integration_tests/RUN_integration_test_nom_daa.m). This script tests the `NominalEncounter.slx` and `DAAEncounter.slx` Simulink models to verify they are working as intended.
+
+10) If there are no errors, then DEGAS, DAIDALUS, and the SC-228 Pilot Model have been integrated together correctly.
 
 ## Testing and code validation
 
-To verify if the code and Simulink models contained in `/DEGAS/code/block_libraries/basic_libraries/` are working as intended, the user can run `RUN_allUnitTests_script.m`, located in `/DEGAS/code/testing/`. This script runs all of the unit tests located in `/DEGAS/code/block_libraries/basic_libraries`. To verify if `NominalEncounter.slx` and `DAAEncounter.slx` are working as intended, the user can run `RUN_integration_test_nom_daa.slx`, located in `/DEGAS/code/integration_tests/`. For more information, see the `README.md` files located in those directories.
+To verify if the code and Simulink models contained in `/degas-core/code/block_libraries/basic_libraries/` are working as intended, the user can run `RUN_allUnitTests_script.m`, located in `/degas-core/code/testing/`. This script runs all of the unit tests located in `/degas-core/code/block_libraries/basic_libraries`. To verify if `NominalEncounter.slx` and `DAAEncounter.slx` are working as intended, the user can run `RUN_integration_test_nom_daa.slx`, located in `/degas-core/code/integration_tests/`. For more information, see the `README.md` files located in those directories.
 
 ## Adding a new component to an end-to-end simulation
 
@@ -203,7 +209,7 @@ Adding a new component to the simulation is straightforward. The user should be 
 
 The steps below describe an example of how to replace the intruder sensor in the DAAEncounter with a block that represents an EOIR sensor.
 
-1) Open `DAAEncounter.slx` located in `/DEGAS/code/examples/DAAEncounter/`.
+1) Open `DAAEncounter.slx` located in `/degas-core/code/examples/DAAEncounter/`.
 
    **Note:** The Simulink model may have red-highlighted blocks if the variables that the block uses are not currently in the base workspace. These variables are added when the simulation is run by the `prepareSim` method.
 
@@ -247,7 +253,7 @@ this.ac1IntSense = EOIRParametricModel('ac1IntEOIR_');
 
 ## Monte Carlo simulation methodology
 
-DEGAS can be used in performing Monte Carlo simulations to collect aggregate statistics and calculate metrics for a large number of encounters. Performing a large number of simulations allows for the calculation of metrics with statistical significance. Metrics that can be calculated using the statistics include risk ratio, loss of well clear ratio, operational suitability metrics, etc. (these metrics are defined in RTCA DO-365 Appendix L). Conceptually, a Monte Carlo analysis can be done by looping over a number of encounters and collecting the statistics of interest. An example implementation of a Monte Carlo analysis can be found in `/DEGAS/code/examples/FastRestart/RUN_Encounters_FastRestart.m`. It should be noted that [RUN_Encounters_FastRestart.m](./code/examples/FastRestart/RUN_Encounters_FastRestart.m) is a notional example since it only uses 50 encounters to calculate metrics. When `RUN_Encounters_FastRestart.m` is run, the following warning might be displayed: "There are no nmacs in the nmacs vector.". This warning is generated when there are no mitigated nmacs when calculating risk ratio, as the risk ratio is 0 if there are no mitigated nmacs. Typically, hundreds of thousands to millions of encounters are simulated to calculate statistically significant metrics. `RUN_Encounters_FastRestart.m` uses the DAAEncounter simulation to run nominal and mitigated simulations to calculate risk ratio and loss of well clear ratio with confidence intervals.
+DEGAS can be used in performing Monte Carlo simulations to collect aggregate statistics and calculate metrics for a large number of encounters. Performing a large number of simulations allows for the calculation of metrics with statistical significance. Metrics that can be calculated using the statistics include risk ratio, loss of well clear ratio, operational suitability metrics, etc. (these metrics are defined in RTCA DO-365 Appendix L). Conceptually, a Monte Carlo analysis can be done by looping over a number of encounters and collecting the statistics of interest. An example implementation of a Monte Carlo analysis can be found in `/degas-core/code/examples/FastRestart/RUN_Encounters_FastRestart.m`. It should be noted that [RUN_Encounters_FastRestart.m](./code/examples/FastRestart/RUN_Encounters_FastRestart.m) is a notional example since it only uses 50 encounters to calculate metrics. When `RUN_Encounters_FastRestart.m` is run, the following warning might be displayed: "There are no nmacs in the nmacs vector.". This warning is generated when there are no mitigated nmacs when calculating risk ratio, as the risk ratio is 0 if there are no mitigated nmacs. Typically, hundreds of thousands to millions of encounters are simulated to calculate statistically significant metrics. `RUN_Encounters_FastRestart.m` uses the DAAEncounter simulation to run nominal and mitigated simulations to calculate risk ratio and loss of well clear ratio with confidence intervals.
 
 The script `RUN_Encounters_FastRestart.m` uses Fast Restart to run the simulation without having to recompile whenever tunable parameters are changed. Normally, the Simulink model compiles itself before every simulation, even if there were no changes to the simulation, but this step is skipped in Fast Restart mode, decreasing simulation time. There is a variable in the script (`s.fastRestartMode`) that enables/disables Fast Restart mode if the user would like to run without it. More information on Fast Restart can be found [here](https://www.mathworks.com/help/simulink/ug/fast-restart-workflow.html;jsessionid=58d551a43f0b1fc1eca0dbb5309f). Below are some other methods that the user can use to speed up simulations:
 
@@ -280,9 +286,9 @@ A DOI number should be created upon public release of this repository.
 DISTRIBUTION STATEMENT A. Approved for public release. Distribution is unlimited.
 
 This material is based upon work supported by the National Aeronautics and Space Administration under Air Force Contract No. FA8702-15-D-0001. Any opinions, findings, conclusions or recommendations expressed in this material are those of the author(s) and do
- not necessarily reflect the views of the National Aeronautics and Space Administration .
+ not necessarily reflect the views of the National Aeronautics and Space Administration.
 
-© 2008 - 2020 Massachusetts Institute of Technology.
+Â© 2008 - 2020 Massachusetts Institute of Technology.
 
 Delivered to the U.S. Government with Unlimited Rights, as defined in DFARS Part 252.227-7013 or 7014 (Feb 2014). Notwithstanding any copyright notice, U.S. Government rights in this work are defined by DFARS 252.227-7013 or DFARS 252.227-7014 as detailed above.
  Use of this work other than as specifically authorized by the U.S. Government may violate any copyrights that exist in this work.
