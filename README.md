@@ -165,7 +165,7 @@ After cloning this repository, follow these steps to setup DEGAS:
 
 1) Startup MATLAB and change the current directory to the `/degas-core/code/` directory located where the repository was cloned.
 
-2) Open the file `startup.m`. If there are additional paths that need to be added to the MATLAB path, they can be put into the `addThesePaths` cell variable. Currently the `addThesePaths` variable contains relative paths to the [degas-daidalus](https://github.com/mit-ll/degas-daidalus) and [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel) repositories.  
+2) Open the file `startup.m`. If there are additional paths that need to be added to the MATLAB path, they can be put into the `addThesePaths` cell variable. Currently the `addThesePaths` variable contains relative paths to the [`degas-daidalus`](https://github.com/mit-ll/degas-daidalus) and [`degas-pilotmodel`](https://github.com/mit-ll/degas-pilotmodel) repositories.  
 
 3) Run `startup.m`. This will add all of the directories and files in the `/degas-core/code/` directory and `addThesePaths` variable to the MATLAB path.
 
@@ -179,23 +179,23 @@ After cloning this repository, follow these steps to setup DEGAS:
 
 The setup for simulations that use DAIDALUS for Detect and Avoid is intended to be run after all the steps in the Quick Start section have been completed.
 
-1) Clone [degas-daidalus](https://github.com/mit-ll/degas-daidalus). Follow the instructions in the `README.md` file located in `/degas-daidalus/SimulinkInterface`. These instructions include obtaining NASA's [DAIDALUS v2.0.1](https://github.com/nasa/daidalus/tree/DAIDALUSv2.0.1c) and mexing the DAIDALUS s-function.
+1) Clone [`degas-daidalus`](https://github.com/mit-ll/degas-daidalus). Follow the instructions in the `README.md` file located in `/degas-daidalus/SimulinkInterface`. These instructions include obtaining NASA's [DAIDALUS v2.0.1](https://github.com/nasa/daidalus/tree/DAIDALUSv2.0.1c) and mexing the DAIDALUS s-function.
 
-2) Clone [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel).
+2) Clone [`degas-pilotmodel`](https://github.com/mit-ll/degas-pilotmodel).
 
 3) Startup MATLAB and change the current directory to the `/degas-core/code/` directory located where the degas-core repository was cloned.
 
-4) Open the file `startup.m`. Ensure the `addThesePaths` variable contains the correct paths to where you have cloned [degas-daidalus](https://github.com/mit-ll/degas-daidalus) and [degas-pilotmodel](https://github.com/mit-ll/degas-pilotmodel) repositories.
+4) Open the file `startup.m`. Ensure the `addThesePaths` variable contains the correct paths to where you have cloned [`degas-daidalus`](https://github.com/mit-ll/degas-daidalus) and [`degas-pilotmodel`](https://github.com/mit-ll/degas-pilotmodel) repositories.
 
 5) Change the working directory to `/degas-core/code/examples/DAAEncounter/`.
 
-6) Run the script [RUN_DAAEncounter.m](./code/examples/DAAEncounter/RUN_DAAEncounter.m).
+6) Run the script [`RUN_DAAEncounter.m`](./code/examples/DAAEncounter/RUN_DAAEncounter.m).
 
 7) If there are no errors, then DAIDALUS and the SC-228 Pilot Model have been setup correctly.
 
 8) Change the working directory to `/degas-core/code/integration_tests/`.
 
-9) Run the script [RUN_integration_test_nom_daa](./code/integration_tests/RUN_integration_test_nom_daa.m). This script tests the `NominalEncounter.slx` and `DAAEncounter.slx` Simulink models to verify they are working as intended.
+9) Run the script [`RUN_integration_test_nom_daa`](./code/integration_tests/RUN_integration_test_nom_daa.m). This script tests the `NominalEncounter.slx` and `DAAEncounter.slx` Simulink models to verify they are working as intended.
 
 10) If there are no errors, then DEGAS, DAIDALUS, and the SC-228 Pilot Model have been integrated together correctly.
 
