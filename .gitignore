@@ -42,18 +42,6 @@ octave-workspace
 ~*.docx
 ~*.tmp
 
-# Directory specific
-Inputs/**/*.ini
-Outputs/**/*.mat
-Outputs/**/*.csv
-Outputs/**/*.txt
-Tests/**/*.mat
-Tests/Generated_Encounters/**/*.txt
-Tests/Code_Coverage/**/*.png
-Tests/Code_Coverage/**/*.jpg
-Tests/Test_Outputs/*/*.fig
-Tests/Test_Outputs/**/*.txt
-
 # Web specific (used by in Code_Coverage)
 *.js
 *.html
